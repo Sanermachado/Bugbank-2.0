@@ -2,16 +2,21 @@ package desafio_Bugbank.steps;
 
 import desafio_Bugbank.pages.*;
 import desafio_Bugbank.utils.DriveManager;
-import io.cucumber.java.After;
+import desafio_Bugbank.utils.ScreenshotUtil;
 import io.cucumber.java.Before;
 import io.cucumber.java.pt.Dado;
 import io.cucumber.java.pt.E;
 import io.cucumber.java.pt.Entao;
 import io.cucumber.java.pt.Quando;
+import org.apache.commons.io.FileUtils;
 import org.junit.Assert;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+
+import java.io.IOException;
+
+import static desafio_Bugbank.pages.RegistrarPage.TextSaldo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.AssertJUnit.assertEquals;
 
 
 public class RegistarSteps {
@@ -19,25 +24,26 @@ public class RegistarSteps {
     private String senhaJoao = "123456";
     private String senhaCleito = "654321";
 
-    private WebDriver navegador;
+    private WebDriver driver;
 
     private RegistrarPage registrarPage;
 
     @Before
     public void setUp() {
-        // Inicializa o navegador usando o DriveManager
-        navegador = DriveManager.getDriver();
+        driver = DriveManager.getDriver();
 
-        // Inicializa as páginas
-        registrarPage = new RegistrarPage(navegador);
+        registrarPage = new RegistrarPage(driver);
     }
+
     @Dado("que estou na página inicial")
     public void queEstouNaPaginaInicial() {
-        navegador.get("https://bugbank.netlify.app/");
+        driver.get("https://bugbank.netlify.app/");
     }
+    @Dado("que estou na pagina da conta de Cleito")
+    public void queEstouNaPaginaDaContaDeJoao(){
 
 
-
+    }
     @E("clico em registrar")
     public void queClicoNoBotaoRegistrar() throws InterruptedException {
         registrarPage.BtcRegistra.click();
@@ -72,10 +78,13 @@ public class RegistarSteps {
         registrarPage.BtcAddSaldo.click();
     }
     @E("clico em cadastrar")
-    public void clicoBtcCadastrar() {
+    public void clicoBtcCadastrar() throws IOException {
         RegistrarPage.BtcCadastrar.click();
     }
-
+    @E("clico em Extrato")
+    public void clicoEmExtrato(){
+    RegistrarPage.BtcExtrato.click();
+    }
     @E("acesso a conta {string}" )
     public void acessoContaDeJoao(String Cliente){
         switch (Cliente){
@@ -102,12 +111,12 @@ public class RegistarSteps {
     }
     @E("valido que foi debitado na conta a transferencia")
     public void validoQueFoiDebitadoDaContaATransferencia(){
-        DriveManager.quitDriver();
+        //DriveManager.quitDriver();
 
     }
 
     @Entao("armazeno numero da conta um")
-    public WebElement armazenaContaUsuarioUm() throws InterruptedException {
+    public WebElement armazenaContaUsuarioUm() throws InterruptedException, IOException {
         Thread.sleep(500);
 
         String numeroConta = registrarPage.ModalTexto.getText().replaceAll("\\D", "");
@@ -119,12 +128,14 @@ public class RegistarSteps {
             System.out.println(registrarPage.conta1+"-"+registrarPage.digito1);
 
         }
+        ScreenshotUtil.tirarScreenshot(driver, "conta-1");
         return registrarPage.ModalTexto;
+
     }
     @Entao("armazeno numero da conta dois")
-    public WebElement armazenaContaUsuariodois() throws InterruptedException {
+    public WebElement armazenaContaUsuariodois() throws InterruptedException, IOException {
         Thread.sleep(500);
-        WebElement elemento = navegador.findElement(By.id("modalText"));
+        WebElement elemento = driver.findElement(By.id("modalText"));
         String numeroConta = elemento.getText().replaceAll("\\D", "");
         String[] numerosConta = numeroConta.split("(?<=\\G.{3})");
 
@@ -133,10 +144,19 @@ public class RegistarSteps {
             registrarPage.digito2 = numerosConta[1];
             System.out.println(registrarPage.conta2+"-"+registrarPage.digito2);
         }
+        ScreenshotUtil.tirarScreenshot(driver, "conta-2");
         return elemento;
 
     }
+    @Entao("o saldo deve ser de {string} reais")
+    public void oSaldoDeveSerDe(String valor) throws IOException {
+        String valorLimpo = TextSaldo.getText().replaceAll("[^0-9,]", "").replace(",", ",");
 
+        System.out.println(valorLimpo);
+        assertEquals(valor, valorLimpo);
+        ScreenshotUtil.tirarScreenshot(driver, "saldo Cleito");
+
+    }
 
     @Quando("abrir modal de registro")
     public void abrorModalDeRegistro(){
@@ -147,13 +167,15 @@ public class RegistarSteps {
         }
     }
     @Quando("valido mensagem de transferencia")
-        public void ValidoMensagemDeTransferencia() throws InterruptedException {
+        public void ValidoMensagemDeTransferencia() throws InterruptedException, IOException {
         Thread.sleep(1000);
         String mensagemExibida = registrarPage.ModalTexto.getText();
         String mensagemEsperada = "Transferencia realizada com sucesso";
         Assert.assertEquals("A mensagem exibida não é a esperada!", mensagemEsperada, mensagemExibida);
         registrarPage.btnCloseModal.click();
         registrarPage.CloseTransferencia.click();
+        ScreenshotUtil.tirarScreenshot(driver, "Transferencia");
+
     }
 
 }

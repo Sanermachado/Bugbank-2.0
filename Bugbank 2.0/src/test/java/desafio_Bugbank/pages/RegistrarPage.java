@@ -49,7 +49,12 @@ public class RegistrarPage extends BasePage {
     public static WebElement btnCloseModal;
     @FindBy(css = ".transfer__ContainerLink-sc-1yjpf2r-2")
     public static WebElement CloseTransferencia;
+    @FindBy(id = "btn-EXTRATO")
+    public static WebElement BtcExtrato;
+    @FindBy(id = "textBalanceAvailable")
+    public static WebElement TextSaldo;
     public RegistrarPage(WebDriver navegador) {
         super(navegador);
     }
+
 }

@@ -2,7 +2,6 @@
 
 @Regressivo
 Funcionalidade: Teste cadastro
-
   @Cenario1
   Cenario: Realizar Cadastro conta 1
     Dado que estou na página inicial
@@ -37,8 +36,14 @@ Funcionalidade: Teste cadastro
     E acesso a conta "Joao"
     E transfiro saldo para conta de cleito
     Quando valido mensagem de transferencia
-    Então acesso a conta "Cleito"
-    E valido que foi debitado na conta a transferencia
+
+
+  @Cenario4
+  Cenario: Validando transferencia
+    Dado que estou na página inicial
+    E acesso a conta "Cleito"
+    E clico em Extrato
+    Então o saldo deve ser de "1500,00" reais
 
 
 
