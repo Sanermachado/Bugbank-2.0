@@ -1,4 +1,5 @@
-- **Este projeto tem como objetivo automatizar os testes de uma aplicação web de um banco digital ( bugbank ). A aplicação permite aos usuários gerenciar suas transferências bancárias. Para garantir a qualidade e a funcionalidade, os testes automatizados foram implementados utilizando o java, q
+## BugBank
+Este projeto tem como objetivo automatizar os testes de uma aplicação web de um banco digital ( bugbank ). A aplicação permite aos usuários gerenciar suas transferências bancárias. Para garantir a qualidade e a funcionalidade, os testes automatizados foram implementados utilizando o java, q
 # Projeto para automação de testes de uma aplicação web utilizando:
 - **Selenium WebDriver** para automação do navegador.
 - **Cucumber** para estruturação dos testes em BDD.
