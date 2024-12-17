@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="Cucumber" time="9.618" tests="3" skipped="0" failures="0" errors="0">
+<testcase classname="Teste cadastro" name="Realizar Cadastro conta 1" time="5.006">
+<system-out><![CDATA[
+Dado que estou na página inicial............................................passed
+E clico em registrar........................................................passed
+Quando abrir modal de registro..............................................passed
+E preencho email "joao@gmail.com"...........................................passed
+E preencho nome "joao"......................................................passed
+E preencho senha............................................................passed
+E confirmo senha............................................................passed
+E adiciono saldo............................................................passed
+E clico em cadastrar........................................................passed
+Então armazeno numero da conta um...........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Teste cadastro" name="Realizar Cadastro conta 2" time="1.979">
+<system-out><![CDATA[
+Dado que estou na página inicial............................................passed
+E clico em registrar........................................................passed
+Quando abrir modal de registro..............................................passed
+E preencho email "cleito@gmail.com".........................................passed
+E preencho nome "cleito"....................................................passed
+E preencho senha cleito.....................................................passed
+E confirmo senha cleito.....................................................passed
+E adiciono saldo............................................................passed
+E clico em cadastrar........................................................passed
+Então armazeno numero da conta dois.........................................passed
+]]></system-out>
+</testcase>
+<testcase classname="Teste cadastro" name="Realizar transferencia de saldo" time="2.496">
+<system-out><![CDATA[
+Dado que estou na página inicial............................................passed
+E acesso a conta "Joao".....................................................passed
+E transfiro saldo para conta de cleito......................................passed
+Quando valido mensagem de transferencia.....................................passed
+Então acesso a conta "Cleito"...............................................passed
+E valido que foi debitado na conta a transferencia..........................passed
+]]></system-out>
+</testcase>
+</testsuite>

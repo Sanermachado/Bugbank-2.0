@@ -1,0 +1,5 @@
+desafio_Bugbank\BasePage.class
+desafio_Bugbank\pages\RegistrarPage.class
+desafio_Bugbank\Runner.class
+desafio_Bugbank\utils\DriveManager.class
+desafio_Bugbank\steps\RegistarSteps.class
