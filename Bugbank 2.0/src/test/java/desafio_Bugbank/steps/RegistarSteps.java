@@ -172,9 +172,10 @@ public class RegistarSteps {
         String mensagemExibida = registrarPage.ModalTexto.getText();
         String mensagemEsperada = "Transferencia realizada com sucesso";
         Assert.assertEquals("A mensagem exibida não é a esperada!", mensagemEsperada, mensagemExibida);
+        ScreenshotUtil.tirarScreenshot(driver, "Transferencia");
+
         registrarPage.btnCloseModal.click();
         registrarPage.CloseTransferencia.click();
-        ScreenshotUtil.tirarScreenshot(driver, "Transferencia");
 
     }
 
